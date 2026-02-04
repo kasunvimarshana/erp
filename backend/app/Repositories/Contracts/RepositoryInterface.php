@@ -23,14 +23,14 @@ interface RepositoryInterface
     /**
      * Find a record by ID.
      */
-    public function find(string $id, array $columns = ['*']): ?Model;
+    public function find(string|int $id, array $columns = ['*']): ?Model;
 
     /**
      * Find a record by ID or fail.
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function findOrFail(string $id, array $columns = ['*']): Model;
+    public function findOrFail(string|int $id, array $columns = ['*']): Model;
 
     /**
      * Find records by specific field.
@@ -50,12 +50,12 @@ interface RepositoryInterface
     /**
      * Update a record.
      */
-    public function update(string $id, array $data): bool;
+    public function update(string|int $id, array $data): Model;
 
     /**
      * Delete a record.
      */
-    public function delete(string $id): bool;
+    public function delete(string|int $id): bool;
 
     /**
      * Count records.
@@ -65,5 +65,5 @@ interface RepositoryInterface
     /**
      * Check if record exists.
      */
-    public function exists(string $id): bool;
+    public function exists(string|int $id): bool;
 }
