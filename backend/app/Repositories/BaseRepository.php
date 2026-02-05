@@ -43,7 +43,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Find a record by ID.
      */
-    public function find(string $id, array $columns = ['*']): ?Model
+    public function find(string|int $id, array $columns = ['*']): ?Model
     {
         return $this->model->newQuery()->find($id, $columns);
     }
@@ -51,7 +51,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Find a record by ID or fail.
      */
-    public function findOrFail(string $id, array $columns = ['*']): Model
+    public function findOrFail(string|int $id, array $columns = ['*']): Model
     {
         return $this->model->newQuery()->findOrFail($id, $columns);
     }
@@ -83,16 +83,17 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Update a record.
      */
-    public function update(string $id, array $data): bool
+    public function update(string|int $id, array $data): Model
     {
         $model = $this->findOrFail($id);
-        return $model->update($data);
+        $model->update($data);
+        return $model;
     }
 
     /**
      * Delete a record.
      */
-    public function delete(string $id): bool
+    public function delete(string|int $id): bool
     {
         $model = $this->findOrFail($id);
         return $model->delete();
@@ -109,7 +110,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Check if record exists.
      */
-    public function exists(string $id): bool
+    public function exists(string|int $id): bool
     {
         return $this->model->newQuery()->where('id', $id)->exists();
     }
