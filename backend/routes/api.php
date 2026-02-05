@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public routes
-Route::prefix('auth')->group(function () {
+// Public routes - Auth with strict rate limiting
+Route::prefix('auth')->middleware('throttle:5,1')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
     Route::post('/register', [AuthController::class, 'register'])->name('api.auth.register');
 });
